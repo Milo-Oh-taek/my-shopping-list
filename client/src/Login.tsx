@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import { signin } from './api';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -16,6 +17,10 @@ const ContentWrapper = styled.div`
   height: 70vh;
   background-color: white;
   border-radius: 20px;
+  @media screen and (max-width: 767px) {
+    width: 80vw;
+    height: 80vh;
+  }
 `;
 
 const Content = styled.div`
@@ -63,6 +68,22 @@ const Content = styled.div`
     margin-top: 2rem;
     width: 250px;
   }
+  @media screen and (max-width: 767px) {
+    .title {
+      font-size: 2em;
+    }
+    img {
+      margin: 10% 0;
+      width: 60%;
+    }
+    .submit {
+      width: 90%;
+    }
+    input {
+      width: 90%;
+      font-size: 1rem;
+    }
+  }
 `;
 
 const Login = () => {
@@ -79,7 +100,14 @@ const Login = () => {
   }, [emailInput, passwordInput]);
 
   const LoginHandler = () => {
-    console.log();
+    signin({ email: emailInput, password: passwordInput })
+      .then(function (res) {
+        nagivate('/main');
+      })
+      .catch(function (err) {
+        const message = err.response.data.message;
+        setErrorString(message);
+      });
   };
 
   return (

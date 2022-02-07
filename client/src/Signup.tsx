@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { signup } from './api';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -16,6 +17,10 @@ const ContentWrapper = styled.div`
   height: 70vh;
   background-color: white;
   border-radius: 20px;
+  @media screen and (max-width: 767px) {
+    width: 80vw;
+    height: 80vh;
+  }
 `;
 
 const Content = styled.div`
@@ -66,6 +71,15 @@ const Content = styled.div`
     margin-top: 2rem;
     width: 250px;
   }
+  @media screen and (max-width: 767px) {
+    input {
+      width: 90%;
+      font-size: 1rem;
+    }
+    .submit {
+      width: 90%;
+    }
+  }
 `;
 
 const Signup = () => {
@@ -91,6 +105,16 @@ const Signup = () => {
     if (passLength < 6 || passLength > 8 || !validateEmail(emailInput)) {
       return setErrorString('Invalid forms');
     }
+
+    signup({ email: emailInput, password: passwordInput })
+      .then(function (res) {
+        alert('Registered!');
+        nagivate('/', { replace: true });
+      })
+      .catch(function (err) {
+        const message = err.response.data.message;
+        setErrorString(message);
+      });
   };
 
   // Email 유효성 검사 정규표현식
