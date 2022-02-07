@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
-const multer = require("multer");
+const morgan = require("morgan");
 
 const itemRouter = require('./routes/item');
 const userRouter = require('./routes/user');
@@ -14,12 +14,6 @@ const mongoose = require('mongoose');
 mongoose
   .connect(
     `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.bj67b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
-    {
-      // useNewUrlPaser: true,
-      // useUnifiedTofology: true,
-      // useCreateIndex: true,
-      // useFindAndModify: false,
-    }
   )
   .then(() => console.log('MongoDB conected'))
   .catch((err) => {
@@ -33,6 +27,7 @@ app.use(
   })
 );
 
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
