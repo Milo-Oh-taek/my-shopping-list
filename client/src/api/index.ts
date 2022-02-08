@@ -1,8 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 
-const instance = axios.create({});
-instance.defaults.baseURL = process.env.REACT_APP_SERVER;
-instance.defaults.withCredentials = true;
+const instance = axios.create({
+  headers: {
+    'Access-Control-Allow-Origin': 'http://api.miloshoppinglist.site',
+  },
+  baseURL: 'http://api.miloshoppinglist.site',
+  withCredentials: true,
+});
 
 interface User {
   email: string;
