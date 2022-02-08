@@ -3,7 +3,6 @@ const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
-const session = require("express-session");
 const morgan = require("morgan");
 
 const itemRouter = require('./routes/item');
@@ -23,7 +22,7 @@ mongoose
 
 app.use(
   cors({
-    origin: process.env.CLIENT_ADDR,
+    origin: true,
     credentials: true,
   })
 );
@@ -32,20 +31,6 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-app.use(
-  session({
-    saveUninitialized: false,
-    resave: false,
-    proxy: true,
-    cookie: { 
-      httpOnly: false,
-      // secure: true,
-      secure: false,
-      domain: process.env.CLIENT_ADDR
-    },
-  })
-);
 
 app.use("/item", itemRouter);
 app.use("/user", userRouter);
