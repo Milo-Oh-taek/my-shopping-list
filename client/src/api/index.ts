@@ -2,9 +2,9 @@ import axios, { AxiosResponse } from 'axios';
 
 const instance = axios.create({
   headers: {
-    'Access-Control-Allow-Origin': 'http://api.miloshoppinglist.site',
+    'Access-Control-Allow-Origin': 'https://api.miloshoppinglist.site',
   },
-  baseURL: 'http://api.miloshoppinglist.site',
+  baseURL: 'https://api.miloshoppinglist.site',
   withCredentials: true,
 });
 
@@ -28,7 +28,7 @@ export const signup = async (data: User): Promise<AxiosResponse> => {
 };
 
 export const signin = async (data: User): Promise<AxiosResponse> => {
-  return await instance.post('user/login', data);
+  return await instance.post('user/login', data, { withCredentials: true });
 };
 
 export const getItemList = async (token: string): Promise<AxiosResponse> => {
