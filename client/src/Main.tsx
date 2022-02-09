@@ -174,8 +174,9 @@ function Main() {
       [index: string]: number;
     };
     const collect: ObjType = {};
-    for (let i = 0; i < itemList.length; i++) {
-      const item = itemList[i];
+    const searchList = itemList.filter(i => i.done === true);
+    for (let i = 0; i < searchList.length; i++) {
+      const item = searchList[i];
       const cate = item.category;
       if (!collect[cate]) collect[cate] = 0;
       collect[cate] = collect[cate] + Number(item.price);
