@@ -39,7 +39,7 @@ router.post('/', imgUpload.single('image'), async (req, res) => {
             return res.status(500).send();
         }
 
-        const itemInfo = { email, name, brand, price, category };
+        const itemInfo = { email, name, brand, price, category, image: req.fileSavename };
         const image = req.file?.filename;
         if(image)  itemInfo.image = image;
 

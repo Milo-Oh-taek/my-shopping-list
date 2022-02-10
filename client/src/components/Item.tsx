@@ -118,7 +118,10 @@ const Item = ({ data, updateRefresh, deleteRefresh }: PropsType) => {
         <ItemLine>
           <span>
             <img
-              src="/royaltoe.jpeg"
+              src={`https://miloshoppinglist.s3.ap-northeast-2.amazonaws.com/${data.image}`}
+              onError={e => {
+                e.currentTarget.src = '/shoppingcart.png';
+              }}
               alt="pic"
               className={`${done ? 'doneImg' : ''}`}
             />
