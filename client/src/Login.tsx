@@ -101,7 +101,7 @@ const Login = () => {
 
   const LoginHandler = () => {
     signin({ email: emailInput, password: passwordInput })
-      .then(function (res) {
+      .then(function () {
         nagivate('/main');
       })
       .catch(function (err) {
